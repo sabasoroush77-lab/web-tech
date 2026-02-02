@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Solar System with Orbit Rings</title>
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+
+  <!-- Planet click interaction -->
+  <script>
+    AFRAME.registerComponent("planet-click", {
+      init: function () {
+        this.el.addEventListener("click", () => {
+          const scale = this.el.getAttribute("scale");
+          if (scale.x === 1) {
+            this.el.setAttribute("scale", "1.5 1.5 1.5");
+          } else {
+            this.el.setAttribute("scale", "1 1 1");
+          }
+        });
+      },
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene cursor="rayOrigin: mouse">
+
+    <!-- Assets -->
+    <a-assets>
+      <img id="space" src="images/space.jpg" />
+      <img id="sunTexture" src="images/sun.jpg" />
+      <img id="mercuryTexture" src="images/mercury.jpg" />
+      <img id="venusTexture" src="images/venus.jpg" />
+      <img id="earthTexture" src="images/earth.jpg" />
+      <img id="marsTexture" src="images/mars.jpg" />
+      <img id="jupiterTexture" src="images/jupitar.jpg" />
+      <img id="saturnTexture" src="images/saturn.jpg" />
+      <img id="uranusTexture" src="images/uranus.jpg" />
+      <img id="neptuneTexture" src="images/neptune.jpg" />
+    </a-assets>
+
+    <!-- Camera -->
+    <a-entity position="0 3 25">
+      <a-camera></a-camera>
+    </a-entity>
+
+    <!-- Sky -->
+    <a-sky src="#space"></a-sky>
+
+    <!-- Sun -->
+    <a-entity id="sun" position="0 0 0">
+      <a-sphere
+        radius="2.5"
+        material="src: #sunTexture"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+      ></a-sphere>
+
+      <!-- Orbit rings (thin, transparent) -->
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="3.9" radius-outer="4.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="4.9" radius-outer="5.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="5.9" radius-outer="6.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="6.9" radius-outer="7.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="8.9" radius-outer="9.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="10.9" radius-outer="11.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="12.9" radius-outer="13.1" color="white" opacity="0.2"></a-ring>
+      <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="14.9" radius-outer="15.1" color="white" opacity="0.2"></a-ring>
+
+      <!-- Planets -->
+      <!-- Mercury -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 3000">
+        <a-sphere
+          position="4 0 0"
+          radius="0.2"
+          material="src: #mercuryTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 2000; easing: linear"
+        ></a-sphere>
+        <a-text value="Mercury" align="center" position="0 0.4 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Venus -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+        <a-sphere
+          position="5 0 0"
+          radius="0.3"
+          material="src: #venusTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear"
+        ></a-sphere>
+        <a-text value="Venus" align="center" position="0 0.5 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Earth -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+        <a-sphere
+          position="6 0 0"
+          radius="0.35"
+          material="src: #earthTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 3600; easing: linear"
+        ></a-sphere>
+        <a-text value="Earth" align="center" position="0 0.45 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Mars -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 15000">
+        <a-sphere
+          position="7 0 0"
+          radius="0.25"
+          material="src: #marsTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear"
+        ></a-sphere>
+        <a-text value="Mars" align="center" position="0 0.35 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Jupiter -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 25000">
+        <a-sphere
+          position="9 0 0"
+          radius="0.9"
+          material="src: #jupiterTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear"
+        ></a-sphere>
+        <a-text value="Jupiter" align="center" position="0 1 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Saturn -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 30000">
+        <a-sphere
+          position="11 0 0"
+          radius="0.7"
+          material="src: #saturnTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 9000; easing: linear"
+        ></a-sphere>
+        <!-- Saturn Ring -->
+        <a-ring
+          position="11 0 0"
+          rotation="90 0 0"
+          radius-inner="0.8"
+          radius-outer="1.2"
+          color="#d4af37"
+        ></a-ring>
+        <a-text value="Saturn" align="center" position="0 0.8 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Uranus -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 40000">
+        <a-sphere
+          position="13 0 0"
+          radius="0.5"
+          material="src: #uranusTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 7000; easing: linear"
+        ></a-sphere>
+        <a-text value="Uranus" align="center" position="0 0.6 0" color="white" side="double"></a-text>
+      </a-entity>
+
+      <!-- Neptune -->
+      <a-entity animation="property: rotation; to: 0 360 0; loop: true; dur: 45000">
+        <a-sphere
+          position="15 0 0"
+          radius="0.5"
+          material="src: #neptuneTexture"
+          planet-click
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 7000; easing: linear"
+        ></a-sphere>
+        <a-text value="Neptune" align="center" position="0 0.6 0" color="white" side="double"></a-text>
+      </a-entity>
+
+    </a-entity>
+
+    <!-- Lights -->
+    <a-light type="ambient" intensity="0.6"></a-light>
+    <a-light type="point" intensity="1.2" position="0 5 25"></a-light>
+
+  </a-scene>
+</body>
+</html>
