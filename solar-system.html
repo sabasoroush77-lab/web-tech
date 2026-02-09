@@ -10,20 +10,28 @@
     AFRAME.registerComponent("planet-click", {
       init: function () {
         this.el.addEventListener("click", () => {
+          // Toggle scale
           const scale = this.el.getAttribute("scale");
           if (scale.x === 1) {
             this.el.setAttribute("scale", "1.5 1.5 1.5");
           } else {
             this.el.setAttribute("scale", "1 1 1");
           }
+  
+          // Play click sound
+          const sound = this.el.components.sound;
+          if (sound) {
+            sound.playSound();
+          }
         });
       },
     });
-  </script>
+  </script>  
 </head>
 
 <body>
-  <a-scene cursor="rayOrigin: mouse">
+  <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+
 
     <!-- Assets -->
     <a-assets>
@@ -37,7 +45,10 @@
       <img id="saturnTexture" src="images/saturn.jpg" />
       <img id="uranusTexture" src="images/uranus.jpg" />
       <img id="neptuneTexture" src="images/neptune.jpg" />
+      <audio id="sunSound" src="sounds/sun.mp3"></audio>
     </a-assets>
+
+    <audio id="sunSound" src="sounds/sun.mp3"></audio>
 
     <!-- Camera -->
     <a-entity position="0 3 25">
@@ -48,12 +59,15 @@
     <a-sky src="#space"></a-sky>
 
     <!-- Sun -->
-    <a-entity id="sun" position="0 0 0">
-      <a-sphere
-        radius="2.5"
-        material="src: #sunTexture"
-        animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
-      ></a-sphere>
+    <a-sphere
+    radius="2.5"
+    material="src: #sunTexture"
+    planet-click
+    class="clickable"
+    sound="src: #sunSound; volume: 0.7"
+    animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+  ></a-sphere>
+  
 
       <!-- Orbit rings (thin, transparent) -->
       <a-ring position="0 0 0" rotation="-90 0 0" radius-inner="3.9" radius-outer="4.1" color="white" opacity="0.2"></a-ring>
